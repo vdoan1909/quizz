@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Exam;
 use App\Models\Subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ExamController extends Controller
 {
@@ -27,7 +28,14 @@ class ExamController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
-        // dd($data);
+
+        $rann = range('A', 'Z');
+        $randomCharacters = '';
+        for ($i = 0; $i < 5; $i++) {
+            $randomCharacters .= $rann[array_rand($rann)];
+        }
+        $data["slug"] = Str::slug($data["name"]) . "-" . $randomCharacters;
+
         $request->validate(
             [
                 "name" => "required|unique:exams,name",
@@ -47,15 +55,26 @@ class ExamController extends Controller
         }
     }
 
-    public function edit(Exam $exam)
+    public function edit(string $slug)
     {
+        $exam = Exam::where("slug", $slug)->firstOrFail();
         $subjects = Subject::get();
         return view(self::PATH_VIEW . __FUNCTION__, compact("exam", "subjects"));
     }
 
-    public function update(Request $request, Exam $exam)
+    public function update(Request $request, string $slug)
     {
+        $exam = Exam::where("slug", $slug)->firstOrFail();
         $data = $request->all();
+        
+        if ($data["name"]) {
+            $rann = range('A', 'Z');
+            $randomCharacters = '';
+            for ($i = 0; $i < 5; $i++) {
+                $randomCharacters .= $rann[array_rand($rann)];
+            }
+            $data["slug"] = Str::slug($data["name"]) . "-" . $randomCharacters;
+        }
 
         $request->validate(
             [
@@ -72,8 +91,9 @@ class ExamController extends Controller
         return redirect()->route("admin.exams.index")->with("success", "Edit exam successfully");
     }
 
-    public function destroy(Exam $exam)
+    public function destroy(string $slug)
     {
+        $exam = Exam::where("slug", $slug)->firstOrFail();
         $exam->delete();    
 
         return redirect()->route("admin.exams.index")->with("success", "Delete exam successfully");

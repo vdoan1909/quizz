@@ -5,7 +5,8 @@
         <ul class="navbar-nav" id="navbar-nav">
             <li class="menu-title"><span>Menu</span></li>
             <li class="nav-item">
-                <a class="nav-link menu-link" href="">
+                <a class="nav-link menu-link {{ Request::RouteIs('admin.index') ? 'active' : '' }}"
+                    href="{{ route('admin.index') }}">
                     <i class="ri-dashboard-2-line"></i> <span>Dashboards</span>
                 </a>
             </li>
@@ -58,16 +59,12 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link menu-link {{ Request::RouteIs([
-                    'admin.questions.index',
-                    'admin.questions.import',
-                    'admin.questions.edit',
-                ])
+                <a class="nav-link menu-link {{ Request::RouteIs(['admin.questions.index', 'admin.questions.import', 'admin.questions.edit'])
                     ? 'active'
                     : '' }}"
                     href="#question" data-bs-toggle="collapse" role="button" aria-expanded="false"
                     aria-controls="question">
-                    <i class="ri-timer-fill"></i> <span>Questions</span>
+                    <i class="ri-questionnaire-fill"></i> <span>Questions</span>
                 </a>
                 <div class="collapse menu-dropdown" id="question">
                     <ul class="nav nav-sm flex-column">

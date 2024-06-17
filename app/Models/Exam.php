@@ -15,6 +15,7 @@ class Exam extends Model
         "number_of_questions",
         "description",
         "subject_id",
+        "slug",
     ];
 
     public function subject(){

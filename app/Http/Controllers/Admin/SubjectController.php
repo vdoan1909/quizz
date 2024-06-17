@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SubjectController extends Controller
 {
@@ -26,6 +27,12 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         $data = $request->except("image");
+        $rann = range('A', 'Z');
+        $randomCharacters = '';
+        for ($i = 0; $i < 5; $i++) {
+            $randomCharacters .= $rann[array_rand($rann)];
+        }
+        $data["slug"] = Str::slug($data["name"]) . "-" . $randomCharacters;
 
         $request->validate(
             [
@@ -48,19 +55,26 @@ class SubjectController extends Controller
         }
     }
 
-    public function show(string $id)
+    public function edit(string $slug)
     {
-        //
-    }
-
-    public function edit(Subject $subject)
-    {
+        $subject = Subject::where("slug", $slug)->firstOrFail();
         return view(self::PATH_VIEW . __FUNCTION__, compact("subject"));
     }
 
-    public function update(Request $request, Subject $subject)
+    public function update(Request $request, string $slug)
     {
+        $subject = Subject::where("slug", $slug)->firstOrFail();
+
         $data = $request->except("image");
+
+        if ($data["name"]) {
+            $rann = range('A', 'Z');
+            $randomCharacters = '';
+            for ($i = 0; $i < 5; $i++) {
+                $randomCharacters .= $rann[array_rand($rann)];
+            }
+            $data["slug"] = Str::slug($data["name"]) . "-" . $randomCharacters;
+        }
 
         $request->validate(
             [
@@ -84,8 +98,10 @@ class SubjectController extends Controller
         return redirect()->route("admin.subjects.index")->with("success", "Edit subject successfully");
     }
 
-    public function destroy(Subject $subject)
+    public function destroy(string $slug)
     {
+        $subject = Subject::where("slug", $slug)->firstOrFail();
+
         $subject->delete();
 
         if ($subject->image && Storage::exists($subject->image)) {

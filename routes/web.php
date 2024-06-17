@@ -26,9 +26,9 @@ Route::prefix("admin")
                 Route::get("/", [SubjectController::class, "index"])->name("index");
                 Route::get("create", [SubjectController::class, "create"])->name("create");
                 Route::post("store", [SubjectController::class, "store"])->name("store");
-                Route::get("edit/{subject}", [SubjectController::class, "edit"])->name("edit");
-                Route::put("update/{subject}", [SubjectController::class, "update"])->name("update");
-                Route::delete("destroy/{subject}", [SubjectController::class, "destroy"])->name("destroy");
+                Route::get("edit/{slug}", [SubjectController::class, "edit"])->name("edit");
+                Route::put("update/{slug}", [SubjectController::class, "update"])->name("update");
+                Route::delete("destroy/{slug}", [SubjectController::class, "destroy"])->name("destroy");
             });
 
         Route::prefix("exam")
@@ -37,9 +37,9 @@ Route::prefix("admin")
                 Route::get("/", [ExamController::class, "index"])->name("index");
                 Route::get("create", [ExamController::class, "create"])->name("create");
                 Route::post("store", [ExamController::class, "store"])->name("store");
-                Route::get("edit/{exam}", [ExamController::class, "edit"])->name("edit");
-                Route::put("update/{exam}", [ExamController::class, "update"])->name("update");
-                Route::delete("destroy/{exam}", [ExamController::class, "destroy"])->name("destroy");
+                Route::get("edit/{slug}", [ExamController::class, "edit"])->name("edit");
+                Route::put("update/{slug}", [ExamController::class, "update"])->name("update");
+                Route::delete("destroy/{slug}", [ExamController::class, "destroy"])->name("destroy");
             });
 
         Route::prefix("question")
@@ -48,9 +48,9 @@ Route::prefix("admin")
                 Route::get("/", [QuestionController::class, "index"])->name("index");
                 Route::get("import", [QuestionController::class, "import"])->name("import");
                 Route::post("file", [QuestionController::class, "file"])->name("file");
-                Route::get("edit/{exam}", [QuestionController::class, "edit"])->name("edit");
-                Route::put("update/{exam}", [QuestionController::class, "update"])->name("update");
-                Route::delete("destroy/{exam}", [QuestionController::class, "destroy"])->name("destroy");
+                Route::get("edit/{question}", [QuestionController::class, "edit"])->name("edit");
+                Route::put("update/{question}", [QuestionController::class, "update"])->name("update");
+                Route::delete("destroy/{question}", [QuestionController::class, "destroy"])->name("destroy");
             });
     });
 

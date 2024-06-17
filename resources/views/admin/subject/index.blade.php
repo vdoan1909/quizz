@@ -37,6 +37,7 @@
                             <tr>
                                 <th width="10px">ID</th>
                                 <th>Name</th>
+                                <th>Slug</th>
                                 <th>Image</th>
                                 <th>Description</th>
                                 <th width="10px">Manage</th>
@@ -47,6 +48,7 @@
                                 <tr class="text-start">
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->name }}</td>
+                                    <td>{{ $item->slug }}</td>
                                     <td class="text-center">
                                         <img style="width: 100px; object-fit: cover;"
                                             src="{{ \Storage::url($item->image) }}" alt="">
@@ -60,14 +62,14 @@
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end">
                                                 <li>
-                                                    <a href="{{ Route('admin.subjects.edit', $item->id) }}"
+                                                    <a href="{{ Route('admin.subjects.edit', $item->slug) }}"
                                                         class="dropdown-item edit-item-btn">
                                                         <i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                         Edit
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <form action="{{ route('admin.subjects.destroy', $item->id) }}"
+                                                    <form action="{{ route('admin.subjects.destroy', $item->slug) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')

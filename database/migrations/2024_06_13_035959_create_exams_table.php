@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('number_of_questions');
             $table->text('description');
             $table->foreignIdFor(Subject::class)->constrained();
+            $table->string('slug');
             $table->timestamps();
         });
     }

@@ -37,6 +37,7 @@
                             <tr>
                                 <th width="10px">ID</th>
                                 <th>Name</th>
+                                <th>Slug</th>
                                 <th>Subject</th>
                                 <th>Time Limit</th>
                                 <th>Number Of Question</th>
@@ -49,6 +50,7 @@
                                 <tr class="text-start">
                                     <td>{{ $item->id }}</td>
                                     <td>{{ $item->name }}</td>
+                                    <td>{{ $item->slug }}</td>
                                     <td>{{ $item->subject->name }}</td>
                                     <td>{{ $item->time_limit }} Minutes</td>
                                     <td>{{ $item->number_of_questions }}</td>
