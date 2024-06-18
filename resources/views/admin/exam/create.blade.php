@@ -43,7 +43,13 @@
 
                                     <div class="mt-3">
                                         <label for="time_limit" class="form-label">Time limit</label>
-                                        <input type="number" class="form-control" id="time_limit" name="time_limit">
+                                        <select class="form-select" id="time_limit" name="time_limit">
+                                            <option value="15">15 Phút</option>
+                                            <option value="45">45 Phút</option>
+                                            <option value="60">60 Phút</option>
+                                            <option value="90">90 Phút</option>
+                                            <option value="120">120 Phút</option>
+                                        </select>
                                         @error('time_limit')
                                             <p class="mt-2 text-danger">
                                                 {{ $message }}

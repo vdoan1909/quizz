@@ -16,8 +16,7 @@
                     <div class="col-12">
                         <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                             <div class="flex-grow-1">
-                                {{-- {{ Auth::User()->name }} --}}
-                                <h4 class="fs-16 mb-1">Chào cụ, !</h4>
+                                <h4 class="fs-16 mb-1">Chào, {{ Auth::User()->name }}!</h4>
                                 <p class="text-muted mb-0">Đây là những gì đang xảy ra với cửa hàng của bạn
                                     hôm nay.</p>
                             </div>

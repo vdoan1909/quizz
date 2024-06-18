@@ -63,14 +63,14 @@
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-end">
                                                 <li>
-                                                    <a href="{{ Route('admin.exams.edit', $item->id) }}"
+                                                    <a href="{{ Route('admin.exams.edit', $item->slug) }}"
                                                         class="dropdown-item edit-item-btn">
                                                         <i class="ri-pencil-fill align-bottom me-2 text-muted"></i>
                                                         Edit
                                                     </a>
                                                 </li>
                                                 <li>
-                                                    <form action="{{ route('admin.exams.destroy', $item->id) }}"
+                                                    <form action="{{ route('admin.exams.destroy', $item->slug) }}"
                                                         method="POST">
                                                         @csrf
                                                         @method('DELETE')

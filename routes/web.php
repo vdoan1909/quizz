@@ -4,19 +4,18 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\QuestionController;
+use App\Http\Controllers\Admin\UserSubjectController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
+
+Route::get("/", [HomeController::class, "index"])->name("customer.home");
 
 Route::prefix("admin")
     ->as("admin.")
-    // ->middleware(["auth", "admin_auth"])
+    ->middleware(["auth", "admin_auth"])
     ->group(function () {
         Route::get("/", [AdminController::class, "index"])->name("index");
 
@@ -56,7 +55,14 @@ Route::prefix("admin")
 
 Route::prefix("client")
     ->as("client.")
-    // ->middleware("auth")
+    ->middleware("auth")
     ->group(function () {
         Route::get("/", [HomeController::class, "index"])->name("index");
+
+        Route::prefix("subject")
+            ->as("subjects.")
+            ->group(function () {
+                Route::get("detail/{slug}", [UserSubjectController::class, "show"])->name("detail");
+                Route::post("store", [UserSubjectController::class, "store"])->name("store");
+            });
     });
