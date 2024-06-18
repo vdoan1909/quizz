@@ -37,7 +37,7 @@ class UserSubjectController extends Controller
             ->first();
 
         if ($get_user_subject) {
-            return back()->with("user_subject_error", "Bạn đã đăng ký rồi !");
+            return back()->with("user_subject_warning", "Bạn đã đăng ký rồi !");
         }
 
         try {

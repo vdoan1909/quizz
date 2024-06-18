@@ -36,21 +36,6 @@ class QuestionImport implements ToCollection
                 'exam_id' => $this->exam_id,
             ];
 
-            $validator = Validator::make($data, [
-                'name' => 'required|string|max:255',
-                'option_a' => 'required|string|max:255',
-                'option_b' => 'required|string|max:255',
-                'option_c' => 'required|string|max:255',
-                'option_d' => 'required|string|max:255',
-                'correct_answer' => 'required|string|max:255',
-                'exam_id' => 'required|integer|exists:exams,id',
-            ]);
-
-            if ($validator->fails()) {
-                Log::error('Validation failed for row at index ' . $key . ': ' . json_encode($row) . ' Errors: ' . json_encode($validator->errors()->all()));
-                continue;
-            }
-
             try {
                 Question::create($data);
             } catch (\Exception $e) {

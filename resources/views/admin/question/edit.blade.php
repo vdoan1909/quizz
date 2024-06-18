@@ -10,7 +10,7 @@
 @section('content')
     <form class="form-group" action="{{ route('admin.questions.update', $question->id) }}" method="POST">
         @csrf
-        @method("PUT")
+        @method('PUT')
         <div class="row">
             <div class="col-12">
                 <div class="page-title-box d-sm-flex align-items-center justify-content-between">
@@ -80,7 +80,7 @@
                                     <div>
                                         <label for="option_b" class="form-label">Exam</label>
                                         <input type="text" class="form-control" id="option_b" name="option_b"
-                                            value="{{ $question->option_b  }}">
+                                            value="{{ $question->option_b }}">
                                         @error('option_b')
                                             <p class="mt-2 text-danger">
                                                 {{ $message }}
@@ -93,7 +93,7 @@
                                     <div>
                                         <label for="option_c" class="form-label">Exam</label>
                                         <input type="text" class="form-control" id="option_c" name="option_c"
-                                            value="{{ $question->option_c  }}">
+                                            value="{{ $question->option_c }}">
                                         @error('option_c')
                                             <p class="mt-2 text-danger">
                                                 {{ $message }}
@@ -106,7 +106,7 @@
                                     <div>
                                         <label for="option_d" class="form-label">Exam</label>
                                         <input type="text" class="form-control" id="option_d" name="option_d"
-                                            value="{{ $question->option_d  }}">
+                                            value="{{ $question->option_d }}">
                                         @error('option_d')
                                             <p class="mt-2 text-danger">
                                                 {{ $message }}
@@ -118,8 +118,27 @@
                                 <div class="col-md-12">
                                     <div>
                                         <label for="correct_answer" class="form-label">Correct Answer</label>
-                                        <input type="text" class="form-control" id="correct_answer" name="correct_answer"
-                                            value="{{ $question->correct_answer  }}">
+                                        <select class="form-select" id="correct_answer" name="correct_answer">
+                                            <option value="{{ $question->correct_answer }}">
+                                                {{ $question->correct_answer }}
+                                            </option>
+
+                                            @if ($question->correct_answer != 'A')
+                                                <option value="A">A</option>
+                                            @endif
+
+                                            @if ($question->correct_answer != 'B')
+                                                <option value="B">B</option>
+                                            @endif
+
+                                            @if ($question->correct_answer != 'C')
+                                                <option value="C">C</option>
+                                            @endif
+
+                                            @if ($question->correct_answer != 'D')
+                                                <option value="D">D</option>
+                                            @endif
+                                        </select>
                                         @error('correct_answer')
                                             <p class="mt-2 text-danger">
                                                 {{ $message }}

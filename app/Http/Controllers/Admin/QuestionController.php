@@ -34,9 +34,11 @@ class QuestionController extends Controller
         ]);
 
         $exam_id = $request->exam_id;
-        Excel::import(new QuestionImport($exam_id), $request->file('import_file'));
+        $is_create = Excel::import(new QuestionImport($exam_id), $request->file('import_file'));
 
-        return redirect()->route("admin.questions.index")->with("success", "Import data question successfully");
+        if ($is_create) {
+            return redirect()->route("admin.questions.index")->with("success", "Import data question successfully");
+        }
     }
 
     public function edit(Question $question)

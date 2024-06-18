@@ -45,8 +45,31 @@
 
                                     <div class="mt-3">
                                         <label for="time_limit" class="form-label">Time limit</label>
-                                        <input type="number" class="form-control" id="time_limit" name="time_limit"
-                                            value="{{ $exam->time_limit }}">
+                                        <select class="form-select" id="time_limit" name="time_limit">
+                                            <option value="{{ $exam->time_limit }}">
+                                                {{ $exam->time_limit }}
+                                            </option>
+
+                                            @if ($exam->time_limit != 15)
+                                                <option value="15">15 Minutes</option>
+                                            @endif
+
+                                            @if ($exam->time_limit != 45)
+                                                <option value="45">45 Minutes</option>
+                                            @endif
+
+                                            @if ($exam->time_limit != 60)
+                                                <option value="60">60 Minutes</option>
+                                            @endif
+
+                                            @if ($exam->time_limit != 90)
+                                                <option value="90">90 Minutes</option>
+                                            @endif
+
+                                            @if ($exam->time_limit != 120)
+                                                <option value="120">120 Minutes</option>
+                                            @endif
+                                        </select>
                                         @error('time_limit')
                                             <p class="mt-2 text-danger">
                                                 {{ $message }}

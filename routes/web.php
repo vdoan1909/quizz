@@ -11,8 +11,6 @@ use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
 
-Route::get("/", [HomeController::class, "index"])->name("customer.home");
-
 Route::prefix("admin")
     ->as("admin.")
     ->middleware(["auth", "admin_auth"])
@@ -53,16 +51,22 @@ Route::prefix("admin")
             });
     });
 
-Route::prefix("client")
+Route::prefix("/")
     ->as("client.")
-    ->middleware("auth")
     ->group(function () {
         Route::get("/", [HomeController::class, "index"])->name("index");
+        Route::get("list/subject", [HomeController::class, "menu"])->name("menu");
 
         Route::prefix("subject")
             ->as("subjects.")
             ->group(function () {
                 Route::get("detail/{slug}", [UserSubjectController::class, "show"])->name("detail");
                 Route::post("store", [UserSubjectController::class, "store"])->name("store");
+            });
+
+        Route::prefix("exam")
+            ->as("exams.")
+            ->group(function () {
+                Route::get("/", [HomeController::class, "exams"])->name("index");
             });
     });

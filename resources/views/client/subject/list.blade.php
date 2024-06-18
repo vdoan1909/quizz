@@ -1,7 +1,7 @@
 @extends('client.layout.master')
 
 @section('title')
-    {{ $subject->name }}
+    Danh sách môn học
 @endsection
 
 @section('banner')
@@ -34,32 +34,32 @@
 @endsection
 
 @section('content')
-    <div class="row gx-10">
-        <div class="col-lg-8">
-            <div class="courses-details">
-                <div class="courses-details-images">
-                    <img src="{{ Storage::url($subject->image) }}" alt="Courses Details">
-                    <span class="tags">{{ $subject->name }}</span>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="sidebar">
-                <div class="sidebar-widget widget-information">
-                    <div class="info-price">
-                        <p class="text-start">{{ $subject->description }}</p>
+    <form class="courses-search search-2" action="{{ route('client.menu') }}" method="POST">
+        @csrf
+        @method("GET")
+        <input type="text" placeholder="Tìm kiếm môn học" name="name">
+        <button type="submit"><i class="icofont-search"></i></button>
+    </form>
+
+    <div class="courses-wrapper-02">
+        <div class="row">
+            @foreach ($subjects as $item)
+                <div class="col-lg-4 col-md-6">
+                    <div class="single-courses">
+                        <div class="courses-images">
+                            <a href="{{ route('client.subjects.detail', $item->slug) }}">
+                                <img style="height: 260px;" src="{{ \Storage::url($item->image) }}" alt="Courses"></a>
+                        </div>
+                        <div class="courses-content">
+                            <h4 class="title">
+                                <a href="{{ route('client.subjects.detail', $item->slug) }}">
+                                    {{ $item->name }}
+                                </a>
+                            </h4>
+                        </div>
                     </div>
-                    <form class="info-btn mt-3" action="{{ route('client.subjects.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="subject_id" value="{{ $subject->id }}">
-                        @if (Auth::User())
-                            <input type="hidden" name="user_id" value="{{ Auth::User()->id }}">
-                        @endif
-                        <button type="submit" class="btn btn-primary">Đăng ký</button>
-                        <a href="#" class="btn btn-primary mt-2">Làm bài kiểm tra</a>
-                    </form>
                 </div>
-            </div>
+            @endforeach
         </div>
     </div>
 @endsection

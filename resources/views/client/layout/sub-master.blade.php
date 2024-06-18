@@ -20,19 +20,15 @@
     <link rel="stylesheet" href="{{ asset('theme/client/assets/css/vendor/plugins.min.css') }}">
     <link rel="stylesheet" href="{{ asset('theme/client/assets/css/style.min.css') }}">
 
-
-    @yield('styles')
-
 </head>
 
 <body>
-    <div class="main-wrapper">
-        @include('client.layout.header')
 
-        @yield('banner')
+    <div class="main-wrapper main-wrapper-02">
+        @include('client.layout.sub-header')
 
-        <div class="section section-padding-02">
-            <div class="container">
+        <div class="section overflow-hidden position-relative" id="wrapper">
+            <div class="page-content-wrapper py-0">
                 @yield('content')
             </div>
         </div>
@@ -40,19 +36,14 @@
         @include('client.layout.footer')
 
     </div>
+    <!-- Modernizer & jQuery JS -->
+    <script src="{{ asset('theme/client/assets/js/vendor/modernizr-3.11.2.min.js') }}"></script>
+    <script src="{{ asset('theme/client/assets/js/vendor/jquery-3.5.1.min.js') }}"></script>
 
-    @yield('toast')
+    <script src="{{ asset('theme/client/assets/js/plugins.min.js') }}"></script>
+
+    <script src="{{ asset('theme/client/assets/js/main.js') }}"></script>
+
 </body>
-<!-- Modernizer & jQuery JS -->
-<script src="{{ asset('theme/client/assets/js/vendor/modernizr-3.11.2.min.js') }}"></script>
-<script src="{{ asset('theme/client/assets/js/vendor/jquery-3.5.1.min.js') }}"></script>
-
-<script src="{{ asset('theme/client/assets/js/plugins.min.js') }}"></script>
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-<script src="{{ asset('theme/client/assets/js/main.js') }}"></script>
-
-@yield('scripts')
 
 </html>

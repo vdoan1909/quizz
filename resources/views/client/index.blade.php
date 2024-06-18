@@ -13,9 +13,8 @@
 
         <div class="container">
             <div class="slider-content">
-                <h4 class="sub-title">Start your favourite course</h4>
-                <h2 class="main-title">Now learning from anywhere, and build your <span>bright career.</span></h2>
-                <p>It has survived not only five centuries but also the leap into electronic typesetting.</p>
+                <h4 class="sub-title">Bắt đầu với môn học yêu thích của bạn</h4>
+                <h2 class="main-title">Bây giờ hãy học mọi thứ, và xây dựng <span>sự nghiệp tươi sáng</span> của bạn.</h2>
             </div>
         </div>
         <div class="slider-courses-box">
@@ -44,9 +43,13 @@
             <h2 class="main-title">Tất cả <span>Môn học</span></h2>
         </div>
         <div class="courses-search">
-            <form action="#">
-                <input type="text" placeholder="Search your course">
-                <button><i class="flaticon-magnifying-glass"></i></button>
+            <form action="{{ route('client.index') }}" method="POST">
+                @csrf
+                @method("GET")
+                <input type="text" placeholder="Tìm kiếm môn học" name="name">
+                <button type="submit">
+                    <i class="flaticon-magnifying-glass"></i>
+                </button>
             </form>
         </div>
     </div>
@@ -56,6 +59,11 @@
             <div class="courses-wrapper">
                 <div class="row">
                     @foreach ($subjects as $item)
+                        {{-- dung firstWhere de so sanh subject_id --}}
+                        @php
+                            $count = $count_res->firstWhere('subject_id', $item->id);
+                        @endphp
+
                         <div class="col-lg-4 col-md-6">
                             <div class="single-courses">
                                 <div class="courses-images">
@@ -76,7 +84,10 @@
                                     </p>
 
                                     <div class="courses-meta">
-                                        <span> <i class="icofont-read-book"></i> 29 đăng ký </span>
+                                        <span>
+                                            <i class="icofont-read-book"></i>
+                                            <strong>{{ $count ? $count->total : 0 }} đăng ký</strong>
+                                        </span>
                                     </div>
 
                                     <form class="mt-3" action="{{ route('client.subjects.store') }}" method="POST">
@@ -97,40 +108,43 @@
     </div>
 
     <div class="courses-btn text-center">
-        <a href="courses.html" class="btn btn-secondary btn-hover-primary">Other Course</a>
+        <a href="courses.html" class="btn btn-secondary btn-hover-primary">Tất cả môn học</a>
     </div>
+@endsection
 
+
+@section('toast')
     @if (session('user_subject_success'))
-        <div class="fui-toast top-eff-show fui-toast-success"
-            style="top: 0px; justify-content: flex-end; transform: translateY(0px);">
-            <div class="fui-toast-box iconCss">
-                <div class="fui-toast-icon">
-                    <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 512 512">
-                        <path
-                            d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z">
-                        </path>
-                    </svg>
-                </div>
-                <div class="fui-toast-body">{{ session('user_subject_success') }}</div>
-            </div>
-        </div>
+        <script>
+            window.onload = function() {
+                swal("Chúc mừng!", "{{ session('user_subject_success') }}", "success");
+            };
+        </script>
+
+        @php
+            Session::forget('user_subject_success');
+        @endphp
+    @endif
+
+    @if (session('user_subject_warning'))
+        <script>
+            window.onload = function() {
+                swal("Tiếc quá!", "{{ session('user_subject_warning') }}", "warning");
+            };
+        </script>
+        @php
+            Session::forget('user_subject_warning');
+        @endphp
     @endif
 
     @if (session('user_subject_error'))
-        <div class="fui-toast top-eff-show fui-toast-error"
-            style="top: 0px; justify-content: flex-end; transform: translateY(0px);">
-            <div class="fui-toast-box iconCss">
-                <div class="fui-toast-icon">
-                    <svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 512 512">
-                        <path
-                            d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM175 175c9.4-9.4 24.6-9.4 33.9 0l47 47 47-47c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9l-47 47 47 47c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-47-47-47 47c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l47-47-47-47c-9.4-9.4-9.4-24.6 0-33.9z">
-                        </path>
-                    </svg>
-                </div>
-                <div class="fui-toast-body">{{ session('user_subject_error') }}</div>
-            </div>
-        </div>
+        <script>
+            window.onload = function() {
+                swal("Rất tiếc!", "{{ session('user_subject_error') }}", "error");
+            };
+        </script>
+        @php
+            Session::forget('user_subject_error');
+        @endphp
     @endif
 @endsection
