@@ -41,9 +41,11 @@
     <script src="{{ asset('theme/client/assets/js/vendor/jquery-3.5.1.min.js') }}"></script>
 
     <script src="{{ asset('theme/client/assets/js/plugins.min.js') }}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <script src="{{ asset('theme/client/assets/js/main.js') }}"></script>
 
+    @yield('scripts')
 </body>
 
 </html>

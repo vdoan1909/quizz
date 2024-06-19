@@ -108,10 +108,9 @@
     </div>
 
     <div class="courses-btn text-center">
-        <a href="courses.html" class="btn btn-secondary btn-hover-primary">Tất cả môn học</a>
+        <a href="{{ route('client.exams.index') }}" class="btn btn-secondary btn-hover-primary">Tất cả môn học</a>
     </div>
 @endsection
-
 
 @section('toast')
     @if (session('user_subject_success'))

@@ -56,7 +56,7 @@
                             <input type="hidden" name="user_id" value="{{ Auth::User()->id }}">
                         @endif
                         <button type="submit" class="btn btn-primary">Đăng ký</button>
-                        <a href="#" class="btn btn-primary mt-2">Làm bài kiểm tra</a>
+                        <a href="{{ route('client.exams.examBySubject', $subject->slug) }}" class="btn btn-primary mt-2">Làm bài kiểm tra</a>
                     </form>
                 </div>
             </div>

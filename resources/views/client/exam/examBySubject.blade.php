@@ -1,16 +1,14 @@
 @extends('client.layout.sub-master')
 
 @section('title')
-    Danh sách bài kiểm tra
+    {{ $subject->name }}
 @endsection
 
 @section('content')
     <div class="nav flex-column nav-pills admin-tab-menu overflow-auto">
-        @foreach ($subjects as $subject)
-            <a href="{{ route('client.exams.examBySubject', $subject->slug) }}">
-                {{ $subject->name }}
-            </a>
-        @endforeach
+        <a href="#">
+            {{ $subject->name }}
+        </a>
     </div>
 
     <div class="main-content-wrapper">
@@ -21,9 +19,7 @@
                 </div>
                 <div class="message-content">
                     <p>
-                        Những bài kiểm tra này bao gồm đầy đủ các môn học chính như Toán, Ngữ Văn, Vật Lý, Hóa Học, Sinh
-                        Học, Lịch Sử, Địa Lý và Tiếng Anh. Mỗi bài kiểm tra được biên soạn kỹ lưỡng, bám sát chương trình
-                        học, nhằm giúp học sinh đánh giá đúng năng lực của mình và nhận ra những điểm cần cải thiện.
+                        {{ $subject->description }}
                     </p>
                 </div>
             </div>
@@ -39,11 +35,12 @@
 
                 <div class="courses-list">
                     <ul>
-                        @foreach ($exams as $exam)
+                        @foreach ($subject->exams as $exam)
                             @php
-                                $is_registered = isset($get_user_subject[$exam->subject_id]);
+                                $is_registered = $get_user_subject->firstWhere('subject_id', $exam->subject_id);
                                 $is_completed = isset($get_user_exam[$exam->id]);
                             @endphp
+
                             <li>
                                 <div class="courses">
                                     <div class="content">

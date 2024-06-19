@@ -55,7 +55,7 @@ Route::prefix("/")
     ->as("client.")
     ->group(function () {
         Route::get("/", [HomeController::class, "index"])->name("index");
-        Route::get("list/subject", [HomeController::class, "menu"])->name("menu");
+        Route::get("subject", [HomeController::class, "menu"])->name("menu");
 
         Route::prefix("subject")
             ->as("subjects.")
@@ -68,5 +68,9 @@ Route::prefix("/")
             ->as("exams.")
             ->group(function () {
                 Route::get("/", [HomeController::class, "exams"])->name("index");
+                Route::get("examBySubject/{slug}", [HomeController::class, "examBySubject"])->name("examBySubject");
+                Route::get("startQuizz/{slug}", [HomeController::class, "startQuizz"])->name("startQuizz");
+                Route::post("finally/{slug}", [HomeController::class, "finallyQuizz"])->name("finallyQuizz");
+                Route::get("result", [HomeController::class, "result"])->name("result");
             });
     });
