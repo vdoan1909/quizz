@@ -39,11 +39,16 @@
                         <li>
                             <a href="{{ route('client.exams.index') }}">Bài kiểm tra</a>
                         </li>
+                        @if (Auth::Check())
+                            <li>
+                                <a href="{{ route('client.customers.show') }}">Hồ sơ</a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
                 <div class="header-sign-in-up d-none d-lg-block">
-                    <ul>
-                        @if (!Auth::User())
+                    <ul class="nav-menu">
+                        @if (!Auth::Check())
                             <li>
                                 <a class="sign-in" href="{{ route('login') }}">Đăng nhập</a>
                             </li>

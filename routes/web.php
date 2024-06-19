@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\ExamController;
 use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\UserSubjectController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -73,4 +74,10 @@ Route::prefix("/")
                 Route::post("finally/{slug}", [HomeController::class, "finallyQuizz"])->name("finallyQuizz");
                 Route::get("result", [HomeController::class, "result"])->name("result");
             });
+
+        Route::prefix("customer")
+        ->as("customers.")
+        ->group(function() {
+            Route::get("/", [CustomerController::class, "show"])->name("show")->middleware("auth");
+        });
     });
