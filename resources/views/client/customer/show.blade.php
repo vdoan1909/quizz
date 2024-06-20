@@ -12,6 +12,11 @@
         <a href="#">
             {{ Auth::User()->email }}
         </a>
+        @if (Auth::User()->role == 'admin')
+            <a href="{{ route('admin.index') }}">
+                Vào trang quản trị
+            </a>
+        @endif
     </div>
 
     <div class="main-content-wrapper">
@@ -30,14 +35,16 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($get_user_exam as $user_exam)
-                                <tr>
-                                    <td>{{ $user_exam->exam->name }}</td>
-                                    <td>{{ $user_exam->exam->number_of_questions }}</td>
-                                    <td>{{ $user_exam->exam->time_limit }}</td>
-                                    <td>{{ $user_exam->score }}</td>
-                                </tr>
-                            @endforeach
+                            @if (isset($get_user_exam))
+                                @foreach ($get_user_exam as $user_exam)
+                                    <tr>
+                                        <td>{{ $user_exam->exam->name }}</td>
+                                        <td>{{ $user_exam->exam->number_of_questions }}</td>
+                                        <td>{{ $user_exam->exam->time_limit }}</td>
+                                        <td>{{ $user_exam->score }}</td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>
@@ -55,15 +62,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($get_user_subject as $user_subject)
-                                <tr>
-                                    <td>{{ $user_subject->subject->name }}</td>
-                                    <td>
-                                        <img style="height: 100px;" src="{{ \Storage::url($user_subject->subject->image) }}"
-                                            alt="Courses"></a>
-                                    </td>
-                                </tr>
-                            @endforeach
+                            @if (isset($get_user_subject))
+                                @foreach ($get_user_subject as $user_subject)
+                                    <tr>
+                                        <td>{{ $user_subject->subject->name }}</td>
+                                        <td>
+                                            <img style="height: 100px;"
+                                                src="{{ \Storage::url($user_subject->subject->image) }}" alt="Courses"></a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

@@ -84,6 +84,7 @@ class HomeController extends Controller
     {
         $currentDate = Carbon::now("Asia/Ho_Chi_Minh")->format('d/m/Y');
         $exam = Exam::where("slug", $request->slug)->with("questions")->firstOrFail();
+        $exam->questions = $exam->questions->shuffle();
         return view("client.exam.startQuizz", compact("exam", "currentDate"));
     }
 

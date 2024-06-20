@@ -40,10 +40,13 @@
                     <h1>{{ $exam->name }}</h1>
                 </div>
 
+                @php
+                    $i = 1;
+                @endphp
                 @foreach ($exam->questions as $index => $question)
                     <div class="mt-3">
                         <div class="quiz-question">
-                            <strong>{{ $question->name }}</strong>
+                            <strong>Câu: {{ $i++ }} {{ $question->name }}</strong>
                         </div>
                         <div class="quiz-options">
                             @foreach (['a', 'b', 'c', 'd'] as $option)
