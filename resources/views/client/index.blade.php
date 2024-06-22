@@ -108,7 +108,7 @@
     </div>
 
     <div class="courses-btn text-center">
-        <a href="{{ route('client.exams.index') }}" class="btn btn-secondary btn-hover-primary">Tất cả môn học</a>
+        <a href="{{ route('client.menu') }}" class="btn btn-secondary btn-hover-primary">Tất cả môn học</a>
     </div>
 @endsection
 

@@ -91,7 +91,7 @@
     </div>
     <div class="mobile-sign-in-up">
         <ul>
-            @if (!Auth::User())
+            @if (!Auth::Check())
                 <li>
                     <a class="sign-in" href="{{ route('login') }}">Đăng nhập</a>
                 </li>
@@ -118,10 +118,18 @@
                 <a href="{{ route('client.index') }}">Trang chủ</a>
             </li>
             <li>
-                <a href="#">Môn học</a>
+                <a href="{{ route('client.menu') }}">Môn học</a>
             </li>
-        </ul>
 
+            <li>
+                <a href="{{ route('client.exams.index') }}">Bài kiểm tra</a>
+            </li>
+            @if (Auth::Check())
+                <li>
+                    <a href="{{ route('client.customers.show') }}">Hồ sơ</a>
+                </li>
+            @endif
+        </ul>
     </div>
     <div class="mobile-social">
         <ul class="social">
