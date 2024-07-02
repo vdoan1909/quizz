@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Schema;
 
 class SubjectSeeder extends Seeder
 {
-    
     public function run(): void
     {
         Schema::disableForeignKeyConstraints();
