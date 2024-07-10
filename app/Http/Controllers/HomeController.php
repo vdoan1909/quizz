@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\QuizCompleted;
 use App\Models\Subject;
 use App\Models\Exam;
+use App\Models\User;
 use App\Models\UserExam;
 use App\Models\UserSubject;
 use Illuminate\Http\Request;
@@ -98,16 +100,18 @@ class HomeController extends Controller
 
         // kiem tra key cua user_answer == questions && value cua user_answer == value cua questions ==> tra loi dung
         $score = 0;
+        $user_correct_answer = 0;
 
         foreach ($questions as $question) {
             if (array_key_exists($question->id, $user_answer)) {
                 if ($user_answer[$question->id] == $question->correct_answer) {
                     $score++;
+                    $user_correct_answer++;
                 }
             }
         }
 
-        $score = $score / $exam->number_of_questions * 10;
+        $score = ($score / $exam->number_of_questions) * 10;
 
         $get_user_exam = UserExam::where("user_id", $data["user_id"])
             ->where("exam_id", $exam->id)
@@ -133,12 +137,23 @@ class HomeController extends Controller
                 );
         }
 
+        $user = Auth::user();
+        $eventData = [
+            'email' => $user->email,
+            'user_name' => $user->name,
+            'exam_name' => $exam->name,
+            'score' => $score
+        ];
+
+        QuizCompleted::dispatch($eventData);
+
         return redirect()->route("client.exams.result")->with(
             [
                 "exam" => $exam->id,
                 "score" => $score,
                 "questions" => $questions,
                 "user_answer" => $user_answer,
+                "user_correct_answer" => $user_correct_answer
             ]
         );
     }
@@ -149,10 +164,10 @@ class HomeController extends Controller
         $score = session("score");
         $questions = session("questions");
         $user_answer = session("user_answer");
-        // dd($questions->toArray());
-        // dd($user_answer);
+        $user_correct_answer = session("user_correct_answer");
+
         $currentDate = Carbon::now("Asia/Ho_Chi_Minh")->format('d/m/Y');
 
-        return view("client.exam.result", compact("exam", "score", "currentDate", "questions", "user_answer"));
+        return view("client.exam.result", compact("exam", "score", "currentDate", "questions", "user_answer", "user_correct_answer"));
     }
 }
