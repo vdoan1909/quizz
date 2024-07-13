@@ -39,7 +39,7 @@ class QuestionImport implements ToCollection
             try {
                 Question::create($data);
             } catch (\Exception $e) {
-                Log::error('Error inserting row at index ' . $key . ': ' . json_encode($row) . ' Error: ' . $e->getMessage());
+                Log::error($e->getMessage());
             }
         }
     }
