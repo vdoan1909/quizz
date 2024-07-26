@@ -6,11 +6,15 @@ use App\Http\Controllers\Admin\SubjectController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\UserSubjectController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
 Auth::routes();
+
+Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
+Route::get('auth/google/call-back', [GoogleAuthController::class, 'callBackGoogle']);
 
 Route::prefix("admin")
     ->as("admin.")
@@ -76,8 +80,8 @@ Route::prefix("/")
             });
 
         Route::prefix("customer")
-        ->as("customers.")
-        ->group(function() {
-            Route::get("/", [CustomerController::class, "show"])->name("show")->middleware("auth");
-        });
+            ->as("customers.")
+            ->group(function () {
+                Route::get("/", [CustomerController::class, "show"])->name("show")->middleware("auth");
+            });
     });

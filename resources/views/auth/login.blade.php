@@ -62,10 +62,12 @@
                             <h3 class="title">Đăng nhập <span>Ngay</span></h3>
 
                             <div class="form-wrapper">
-                                <form method="POST" action="{{ route('login') }}">
+                                <form method="POST" action="{{ route('login') }}" novalidate>
                                     @csrf
                                     <div class="single-form">
-                                        <input type="email" placeholder="Email" name="email">
+                                        <input id="email" type="email" placeholder="Email"
+                                            class="@error('email') is-invalid @enderror" name="email"
+                                            value="{{ old('email') }}" required autocomplete="email" autofocus>
                                         @error('email')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -73,7 +75,9 @@
                                         @enderror
                                     </div>
                                     <div class="single-form">
-                                        <input type="password" placeholder="Mật khẩu" name="password">
+                                        <input id="password" type="password" placeholder="Mật khẩu"
+                                            class="@error('password') is-invalid @enderror" name="password" required
+                                            autocomplete="current-password">
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -82,8 +86,15 @@
                                     </div>
                                     <div class="single-form">
                                         <button class="btn btn-primary btn-hover-dark w-100">Đăng nhập</button>
+
+                                        <a class="btn btn-secondary btn-outline w-100" href="{{ route('google-auth') }}">
+                                            Login with Google
+                                        </a>
+
                                         <a class="btn btn-secondary btn-outline w-100"
-                                            href="{{ route('password.request') }}">Quên mật khẩu</a>
+                                            href="{{ route('password.request') }}">
+                                            Quên mật khẩu
+                                        </a>
                                     </div>
                                 </form>
                             </div>
