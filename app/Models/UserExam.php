@@ -15,7 +15,13 @@ class UserExam extends Model
         "score",
     ];
 
-    public function exam(){
+    public function exam()
+    {
         return $this->belongsTo(Exam::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

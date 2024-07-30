@@ -37,7 +37,21 @@ class SideBarServiceProdiver extends ServiceProvider
                     'icon' => 'ri-questionnaire-fill',
                     'name' => 'Questions',
                     'routeName' => "questions",
-                ]
+                ],
+
+                [
+                    'id' => 'user',
+                    'icon' => 'ri-file-user-fill',
+                    'name' => 'Users',
+                    'routeName' => "users",
+                ],
+
+                [
+                    'id' => 'manager',
+                    'icon' => ' ri-admin-fill',
+                    'name' => 'Managers',
+                    'routeName' => "managers",
+                ],
             ];
 
 
