@@ -8,7 +8,7 @@
 @endsection
 
 @section('content')
-    <form class="form-group" action="{{ route('admin.users.update', $model->id) }}" method="POST" novalidate>
+    <form class="form-group" action="{{ route('admin.managers.update', $model->id) }}" method="POST" novalidate>
         @csrf
         @method('PUT')
         <div class="row">
@@ -46,7 +46,7 @@
                                     <div class="mt-3">
                                         <label for="email" class="form-label">Email</label>
                                         <input type="text" class="form-control" id="email" name="email"
-                                            value="{{ $model->email }}">
+                                            value="{{ $model->email }}" readonly>
                                         @error('email')
                                             <p class="mt-2 text-danger">
                                                 {{ $message }}
@@ -106,18 +106,7 @@
 @endsection
 
 @section('script-libs')
-    <script src="https://cdn.ckeditor.com/ckeditor5/39.0.1/classic/ckeditor.js"></script>
-
     <!-- prismjs plugin -->
     <script src="assets/libs/prismjs/prism.js"></script>
 @endsection
-
-@section('scripts')
-    <script>
-        ClassicEditor
-            .create(document.querySelector('#description'))
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
-@endsection
+    
