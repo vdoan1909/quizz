@@ -21,7 +21,7 @@
                         <ul class="widget-info">
                             <li>
                                 <p> <i class="flaticon-email"></i> <a
-                                        href="mailto:openaivdoan@gmail.com">openaivdoan@gmail.com</a> </p>
+                                        href="mailto:uocmolahinhsu@gmail.com">uocmolahinhsu@gmail.com</a> </p>
                             </li>
                             <li>
                                 <p> <i class="flaticon-phone-call"></i> <a href="tel:924794577">0924 794 577</a> </p>
