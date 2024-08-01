@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\UserExamExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserManageCreateRequest;
+use App\Http\Requests\UserManageUpdateRequest;
 use App\Models\User;
 use App\Models\UserExam;
 use Illuminate\Http\Request;
@@ -24,16 +26,9 @@ class UserManageController extends Controller
         return view(self::PATH_VIEW . __FUNCTION__);
     }
 
-    public function store(Request $request)
+    public function store(UserManageCreateRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-            'password_confirmation' => 'required|string|min:8|same:password',
-        ]);
-
-        $user = User::create([
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
@@ -57,15 +52,9 @@ class UserManageController extends Controller
         return view(self::PATH_VIEW . __FUNCTION__, compact("model"));
     }
 
-    public function update(Request $request, string $id)
+    public function update(UserManageUpdateRequest $request, string $id)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'password' => 'required|string|min:8',
-            'password_confirmation' => 'required|string|min:8|same:password',
-        ]);
-
-        $user = User::where('id', $id)->update([
+        User::where('id', $id)->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
